@@ -45,19 +45,40 @@ const Positions: React.FC = () => {
 
     return (
         <Container className="mt-5">
-            <Button variant="link" onClick={() => navigate('/')} className="mb-3">
+            <Button 
+                variant="link" 
+                onClick={() => navigate('/')} 
+                className="mb-3"
+                data-testid="back-button"
+            >
                 Volver al Dashboard
             </Button>
-            <h2 className="text-center mb-4">Posiciones</h2>
+            <h2 
+                className="text-center mb-4"
+                data-testid="page-title"
+            >
+                Posiciones
+            </h2>
             <Row className="mb-4">
                 <Col md={3}>
-                    <Form.Control type="text" placeholder="Buscar por título" />
+                    <Form.Control 
+                        type="text" 
+                        placeholder="Buscar por título"
+                        data-testid="title-search"
+                    />
                 </Col>
                 <Col md={3}>
-                    <Form.Control type="date" placeholder="Buscar por fecha" />
+                    <Form.Control 
+                        type="date" 
+                        placeholder="Buscar por fecha"
+                        data-testid="date-search"
+                    />
                 </Col>
                 <Col md={3}>
-                    <Form.Control as="select">
+                    <Form.Control 
+                        as="select"
+                        data-testid="status-filter"
+                    >
                         <option value="">Estado</option>
                         <option value="open">Abierto</option>
                         <option value="filled">Contratado</option>
@@ -66,7 +87,10 @@ const Positions: React.FC = () => {
                     </Form.Control>
                 </Col>
                 <Col md={3}>
-                    <Form.Control as="select">
+                    <Form.Control 
+                        as="select"
+                        data-testid="manager-filter"
+                    >
                         <option value="">Manager</option>
                         <option value="john_doe">John Doe</option>
                         <option value="jane_smith">Jane Smith</option>
@@ -77,19 +101,33 @@ const Positions: React.FC = () => {
             <Row>
                 {positions.map((position, index) => (
                     <Col md={4} key={index} className="mb-4">
-                        <Card className="shadow-sm">
+                        <Card className="shadow-sm" data-testid="position-card">
                             <Card.Body>
-                                <Card.Title>{position.title}</Card.Title>
-                                <Card.Text>
+                                <Card.Title data-testid="position-title">{position.title}</Card.Title>
+                                <Card.Text data-testid="position-details">
                                     <strong>Manager:</strong> {position.contactInfo}<br />
                                     <strong>Deadline:</strong> {position.applicationDeadline}
                                 </Card.Text>
-                                <span className={`badge ${position.status === 'Open' ? 'bg-warning' : position.status === 'Contratado' ? 'bg-success' : position.status === 'Borrador' ? 'bg-secondary' : 'bg-warning'} text-white`}>
+                                <span 
+                                    className={`badge ${position.status === 'Open' ? 'bg-warning' : position.status === 'Contratado' ? 'bg-success' : position.status === 'Borrador' ? 'bg-secondary' : 'bg-warning'} text-white`}
+                                    data-testid="position-status"
+                                >
                                     {position.status}
                                 </span>
                                 <div className="d-flex justify-content-between mt-3">
-                                    <Button variant="primary" onClick={() => navigate(`/positions/${position.id}`)}>Ver proceso</Button>
-                                    <Button variant="secondary">Editar</Button>
+                                    <Button 
+                                        variant="primary" 
+                                        onClick={() => navigate(`/positions/${position.id}`)}
+                                        data-testid="view-process-button"
+                                    >
+                                        Ver proceso
+                                    </Button>
+                                    <Button 
+                                        variant="secondary"
+                                        data-testid="edit-button"
+                                    >
+                                        Editar
+                                    </Button>
                                 </div>
                             </Card.Body>
                         </Card>

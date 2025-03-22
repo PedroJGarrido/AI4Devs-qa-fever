@@ -13,7 +13,12 @@ const StageColumn = ({ stage, index, onCardClick }) => (
                     {...provided.droppableProps}
                     data-testid="stage-column"
                 >
-                    <Card.Header className="text-center">{stage.title}</Card.Header>
+                    <Card.Header 
+                        className="text-center"
+                        data-testid="column-header"
+                    >
+                        {stage.title}
+                    </Card.Header>
                     <Card.Body>
                         {stage.candidates.map((candidate, idx) => (
                             <CandidateCard key={candidate.id} candidate={candidate} index={idx} onClick={onCardClick} />

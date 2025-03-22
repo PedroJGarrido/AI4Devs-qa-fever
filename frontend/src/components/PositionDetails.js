@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Container, Row, Offcanvas, Button } from 'react-bootstrap';
+import { Container, Row, Button } from 'react-bootstrap';
 import { DragDropContext } from 'react-beautiful-dnd';
 import StageColumn from './StageColumn';
 import CandidateDetails from './CandidateDetails';
@@ -12,6 +12,51 @@ const PositionsDetails = () => {
     const [positionName, setPositionName] = useState('');
     const [selectedCandidate, setSelectedCandidate] = useState(null);
     const navigate = useNavigate();
+
+    const updateCandidateStep = async (candidateId, applicationId, newStep) => {
+        try {
+            const response = await fetch(`http://localhost:3010/candidates/${candidateId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    applicationId: Number(applicationId),
+                    currentInterviewStep: Number(newStep)
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Error updating candidate step');
+            }
+
+            // Actualizar el estado local
+            setStages(prevStages =>
+                prevStages.map(stage => ({
+                    ...stage,
+                    candidates: stage.candidates.map(candidate => {
+                        if (candidate.id === candidateId) {
+                            return { ...candidate, currentInterviewStep: newStep };
+                        }
+                        return candidate;
+                    })
+                }))
+            );
+        } catch (error) {
+            console.error('Error updating candidate step:', error);
+        }
+    };
+
+    // Exponer la función para testing
+    useEffect(() => {
+        // Exponer la función inmediatamente para testing
+        window.updateCandidateStep = updateCandidateStep;
+        
+        return () => {
+            // Limpiar al desmontar
+            delete window.updateCandidateStep;
+        };
+    }, [updateCandidateStep]); // Agregar updateCandidateStep como dependencia
 
     useEffect(() => {
         const fetchInterviewFlow = async () => {
@@ -56,27 +101,6 @@ const PositionsDetails = () => {
         fetchCandidates();
     }, [id]);
 
-    const updateCandidateStep = async (candidateId, applicationId, newStep) => {
-        try {
-            const response = await fetch(`http://localhost:3010/candidates/${candidateId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    applicationId: Number(applicationId),
-                    currentInterviewStep: Number(newStep)
-                })
-            });
-
-            if (!response.ok) {
-                throw new Error('Error updating candidate step');
-            }
-        } catch (error) {
-            console.error('Error updating candidate step:', error);
-        }
-    };
-
     const onDragEnd = (result) => {
         const { source, destination } = result;
 
@@ -93,7 +117,6 @@ const PositionsDetails = () => {
         setStages([...stages]);
 
         const destStageId = stages[destination.droppableId].id;
-
         updateCandidateStep(movedCandidate.id, movedCandidate.applicationId, destStageId);
     };
 
@@ -107,18 +130,39 @@ const PositionsDetails = () => {
 
     return (
         <Container className="mt-5">
-            <Button variant="link" onClick={() => navigate('/positions')} className="mb-3">
+            <Button 
+                variant="link" 
+                onClick={() => navigate('/positions')} 
+                className="mb-3"
+                data-testid="back-button"
+            >
                 Volver a Posiciones
             </Button>
-            <h2 className="text-center mb-4">{positionName}</h2>
-            <DragDropContext onDragEnd={onDragEnd}>
+            <h2 
+                className="text-center mb-4"
+                data-testid="position-title"
+            >
+                {positionName}
+            </h2>
+            <DragDropContext 
+                onDragEnd={onDragEnd}
+                data-testid="drag-drop-context"
+            >
                 <Row>
                     {stages.map((stage, index) => (
-                        <StageColumn key={index} stage={stage} index={index} onCardClick={handleCardClick} />
+                        <StageColumn 
+                            key={index} 
+                            stage={stage} 
+                            index={index} 
+                            onCardClick={handleCardClick}
+                        />
                     ))}
                 </Row>
             </DragDropContext>
-            <CandidateDetails candidate={selectedCandidate} onClose={closeSlide} />
+            <CandidateDetails 
+                candidate={selectedCandidate} 
+                onClose={closeSlide}
+            />
         </Container>
     );
 };
