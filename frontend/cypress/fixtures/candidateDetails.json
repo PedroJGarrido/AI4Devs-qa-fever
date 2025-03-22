@@ -1,0 +1,52 @@
+{
+  "id": 1,
+  "firstName": "Ana",
+  "lastName": "García",
+  "email": "ana.garcia@email.com",
+  "phone": "123456789",
+  "address": "Calle Principal 123",
+  "educations": [
+    {
+      "id": 1,
+      "institution": "Universidad XYZ",
+      "title": "Ingeniería Informática",
+      "startDate": "2015-09-01",
+      "endDate": "2019-06-30"
+    }
+  ],
+  "workExperiences": [
+    {
+      "id": 1,
+      "company": "Tech Corp",
+      "position": "Desarrollador Frontend",
+      "description": "Desarrollo de aplicaciones web",
+      "startDate": "2019-07-01",
+      "endDate": "2023-12-31"
+    }
+  ],
+  "resumes": [
+    {
+      "id": 1,
+      "filePath": "/uploads/cv.pdf"
+    }
+  ],
+  "applications": [
+    {
+      "id": 1,
+      "position": {
+        "title": "Desarrollador Frontend Senior"
+      },
+      "applicationDate": "2024-01-01",
+      "interviews": [
+        {
+          "interviewDate": "2024-01-15",
+          "interviewStep": {
+            "name": "CV Review"
+          },
+          "notes": "Excelente candidata",
+          "score": 5
+        }
+      ]
+    }
+  ]
+} 

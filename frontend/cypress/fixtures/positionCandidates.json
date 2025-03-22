@@ -1,0 +1,23 @@
+[
+  {
+    "candidateId": 1,
+    "fullName": "Ana García",
+    "currentInterviewStep": "CV Review",
+    "averageScore": 4.5,
+    "applicationId": 101
+  },
+  {
+    "candidateId": 2,
+    "fullName": "Carlos Rodríguez",
+    "currentInterviewStep": "Technical Interview",
+    "averageScore": 4.2,
+    "applicationId": 102
+  },
+  {
+    "candidateId": 3,
+    "fullName": "María López",
+    "currentInterviewStep": "HR Interview",
+    "averageScore": 4.8,
+    "applicationId": 103
+  }
+] 

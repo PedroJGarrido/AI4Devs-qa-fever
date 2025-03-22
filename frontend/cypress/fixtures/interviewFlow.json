@@ -1,7 +1,12 @@
 {
-  "stages": [
-    { "id": 1, "name": "CV Review", "order": 1 },
-    { "id": 2, "name": "Technical Interview", "order": 2 },
-    { "id": 3, "name": "HR Interview", "order": 3 }
-  ]
+  "interviewFlow": {
+    "interviewFlow": {
+      "interviewSteps": [
+        { "id": 1, "name": "CV Review" },
+        { "id": 2, "name": "Technical Interview" },
+        { "id": 3, "name": "HR Interview" }
+      ]
+    },
+    "positionName": "Desarrollador Frontend Senior"
+  }
 } 
