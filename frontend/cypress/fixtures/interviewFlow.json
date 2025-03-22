@@ -1,0 +1,7 @@
+{
+  "stages": [
+    { "id": 1, "name": "CV Review", "order": 1 },
+    { "id": 2, "name": "Technical Interview", "order": 2 },
+    { "id": 3, "name": "HR Interview", "order": 3 }
+  ]
+} 

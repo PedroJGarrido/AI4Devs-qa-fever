@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "title": "Desarrollador Frontend Senior",
+    "contactInfo": "John Doe",
+    "applicationDeadline": "2024-12-31",
+    "status": "Open"
+  },
+  {
+    "id": 2,
+    "title": "Desarrollador Backend",
+    "contactInfo": "Jane Smith",
+    "applicationDeadline": "2024-11-30",
+    "status": "Contratado"
+  },
+  {
+    "id": 3,
+    "title": "DevOps Engineer",
+    "contactInfo": "Alex Jones",
+    "applicationDeadline": "2024-10-31",
+    "status": "Cerrado"
+  }
+]
