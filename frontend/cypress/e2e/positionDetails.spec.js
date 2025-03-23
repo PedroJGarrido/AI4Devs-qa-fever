@@ -163,41 +163,23 @@ describe('Página de Detalles de Position', () => {
         }
       }).as('updateCandidate');
 
-      // Asegurarnos de que ambas columnas están presentes
-      cy.get('[data-testid="stage-column"]')
-        .should('have.length', 3)
-        .as('columns');
-
-      // Simular mousedown en el origen
-      cy.get('@sourceCard').trigger('mousedown', {
-        button: 0,
-        force: true
-      });
-
-      // Simular mousemove inicial
-      cy.get('@sourceCard').trigger('mousemove', {
-        button: 0,
-        clientX: 100,
-        clientY: 100,
-        force: true
-      });
-
-      // Simular mousemove al destino
+      // Obtener la columna destino
       cy.get('[data-testid="stage-column"]')
         .eq(1)
-        .as('targetColumn')
-        .trigger('mousemove', {
-          button: 0,
-          clientX: 300,
-          clientY: 100,
-          force: true
+        .as('targetColumn');
+
+      // Realizar el drag and drop usando cypress-real-events
+      cy.get('@sourceCard')
+        .realMouseDown()
+        .realMouseMove(0, 0) // Mover al inicio para iniciar el drag
+        .then($el => {
+          const rect = $el[0].getBoundingClientRect();
+          cy.wrap($el)
+            .realMouseMove(rect.x + 100, rect.y -100) // Mover hacia la columna destino // Mover hacia la columna destino
+            .realMouseUp();
         });
 
-      // Simular mouseup en el destino
-      cy.get('@targetColumn').trigger('mouseup', {
-        button: 0,
-        force: true
-      });
+
 
       // Esperar a que se complete la actualización en el backend
       cy.wait('@updateCandidate').then((interception) => {
